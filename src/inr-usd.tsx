@@ -15,13 +15,18 @@ function timeAgo(date: Date | null): string {
 }
 
 import { commaUSStandard, commaINStandard, countLastZeros } from "./util";
-import { reformatCurrencyArray, convertToInternationalCurrencySystem } from "./script";
+import {
+  reformatCurrencyArray,
+  convertToInternationalCurrencySystem,
+} from "./script";
 import { inrWordsToNumber } from "./inr_words_to_number";
 import { inrToWords } from "./inr_to_words";
 import { convertDollarsAndCents } from "./usd_to_words";
 import { useExchangeRate } from "./fetch_exchange_rate";
 
-export default function Command(props: LaunchProps<{ arguments: { inrValue: string } }>) {
+export default function Command(
+  props: LaunchProps<{ arguments: { inrValue: string } }>,
+) {
   const input = props.arguments.inrValue;
   const { rate, isLoading, lastUpdated } = useExchangeRate();
 
@@ -33,7 +38,8 @@ export default function Command(props: LaunchProps<{ arguments: { inrValue: stri
 
     const formattedCurrency = "₹" + formattedCurrencyArr.join(" ");
     const intINRValue = inrWordsToNumber(formattedCurrencyArr);
-    if (intINRValue === "NaN" || intINRValue === "" || intINRValue === "0") return null;
+    if (intINRValue === "NaN" || intINRValue === "" || intINRValue === "0")
+      return null;
 
     const exchangeRate = parseFloat((1 / rate).toFixed(5));
     const inrNum = parseFloat(intINRValue);
@@ -61,7 +67,7 @@ export default function Command(props: LaunchProps<{ arguments: { inrValue: stri
       navigationTitle="INR to USD"
       markdown={[
         `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`,
-        `$$\\color{gray}\\Large\\text{${result.formattedCurrency}} \\;\\rightarrow\\; \\color{white}\\Huge\\text{${result.shortUsd.replace('$', '\\$')}}$$`,
+        `$$\\color{gray}\\Large\\text{${result.formattedCurrency}} \\;\\rightarrow\\; \\color{white}\\Huge\\text{${result.shortUsd.replace("$", "\\$")}}$$`,
         ``,
         `---`,
         ``,
@@ -73,16 +79,31 @@ export default function Command(props: LaunchProps<{ arguments: { inrValue: stri
         `| **INR (Short)** | ${result.inrShort} |`,
         `| **INR (Words)** | ${result.inrWords} |`,
         ``,
-        `$$\\large\\text{Exchange} \\quad \\normalsize\\color{gray}\\text{${rate}} \\quad \\text{${exchangeInfo.replace('$', '\\$')}} \\quad \\scriptsize\\color{darkgray}\\text{Updated ${timeAgo(lastUpdated)}}$$`,
-      ].join('\n')}
+        `$$\\large\\text{Exchange} \\quad \\normalsize\\color{gray}\\text{${rate}} \\quad \\text{${exchangeInfo.replace("$", "\\$")}} \\quad \\scriptsize\\color{darkgray}\\text{Updated ${timeAgo(lastUpdated)}}$$`,
+      ].join("\n")}
       actions={
         <ActionPanel>
-          <Action.CopyToClipboard title="Copy USD (Short)" content={result.shortUsd} />
+          <Action.CopyToClipboard
+            title="Copy USD (Short)"
+            content={result.shortUsd}
+          />
           <Action.CopyToClipboard title="Copy USD" content={result.absUsd} />
-          <Action.CopyToClipboard title="Copy INR" content={result.inrWithComma} />
-          <Action.CopyToClipboard title="Copy INR (Short)" content={result.inrShort} />
-          <Action.CopyToClipboard title="Copy Words" content={result.usdWords} />
-          <Action.CopyToClipboard title="Copy INR Words" content={result.inrWords} />
+          <Action.CopyToClipboard
+            title="Copy INR"
+            content={result.inrWithComma}
+          />
+          <Action.CopyToClipboard
+            title="Copy INR (Short)"
+            content={result.inrShort}
+          />
+          <Action.CopyToClipboard
+            title="Copy Words"
+            content={result.usdWords}
+          />
+          <Action.CopyToClipboard
+            title="Copy INR Words"
+            content={result.inrWords}
+          />
         </ActionPanel>
       }
     />
