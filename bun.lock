@@ -4,8 +4,8 @@
     "": {
       "name": "inr-to-usd",
       "dependencies": {
-        "@raycast/api": "^1.103.0",
-        "@raycast/utils": "^2.2.1",
+        "@raycast/api": "^1.104.18",
+        "@raycast/utils": "^2.2.5",
       },
       "devDependencies": {
         "@raycast/eslint-config": "^2.0.4",

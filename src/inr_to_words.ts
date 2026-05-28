@@ -164,9 +164,7 @@ export function inrToWords(
     }
 
     return resultStr.trim();
-  } catch (e) {
-    console.warn("Handle 👇");
-    console.error(e);
+  } catch {
     return "Error";
   }
 }
