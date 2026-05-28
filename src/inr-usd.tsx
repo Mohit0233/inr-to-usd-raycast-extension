@@ -64,9 +64,13 @@ export default function Command(
   }, [input, rate]);
 
   if (result && "error" in result) {
-    return <Detail markdown={`## Invalid Input
+    return (
+      <Detail
+        markdown={`## Invalid Input
 
-${result.error}`} />;
+${result.error}`}
+      />
+    );
   }
 
   const exchangeInfo = `₹1 = $${(1 / rate).toFixed(5)}`;
@@ -118,8 +122,10 @@ ${result.error}`} />;
       }
     />
   ) : (
-    <Detail markdown={`## Invalid Input
+    <Detail
+      markdown={`## Invalid Input
 
-Couldn't parse **"${input}"**. Try something like **15 lakh** or **2.5 crore**.`} />
+Couldn't parse **"${input}"**. Try something like **15 lakh** or **2.5 crore**.`}
+    />
   );
 }

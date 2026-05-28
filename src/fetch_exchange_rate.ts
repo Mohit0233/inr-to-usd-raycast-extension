@@ -24,7 +24,9 @@ export function useExchangeRate() {
       }
       if (storedTime) setCachedTime(new Date(storedTime));
     });
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const { data, isLoading } = useFetch<{ rates: { INR: number } }>(
@@ -35,7 +37,10 @@ export function useExchangeRate() {
   );
 
   const rate = data?.rates?.INR ?? cachedRate;
-  const lastUpdated = useMemo(() => (data ? new Date() : cachedTime), [data, cachedTime]);
+  const lastUpdated = useMemo(
+    () => (data ? new Date() : cachedTime),
+    [data, cachedTime],
+  );
 
   useEffect(() => {
     if (data?.rates?.INR) {
